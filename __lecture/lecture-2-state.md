@@ -33,7 +33,7 @@ These snippets are identical:
 
 ```jsx
 // Using deconstruction:
-const [value, setValue] = React.useState(null);
+const [value, setValue] = React.useState();
 ```
 
 ```jsx
@@ -60,7 +60,8 @@ This snippet won't throw an error, but it also won't work:
 ```jsx
 let [value, setValue] = React.useState(null);
 
-value = 10;
+//value = 10; NOPE
+setValue = 10;
 ```
 
 ---
@@ -264,9 +265,7 @@ render(<App />);
 ---
 
 ```jsx live=true
-const FavouriteFood = () => {
-  const [food, setFood] = React.useState("");
-
+const FavouriteFood = ({ food, setFood }) => {
   return (
     <>
       <label>
@@ -294,10 +293,11 @@ const FavouriteFood = () => {
 };
 
 const App = () => {
+  const [food, setFood] = React.useState("");
   return (
     <>
       <p>My favourite food is: ???</p>
-      <FavouriteFood />
+      <FavouriteFood food={food} setFood={setFood} />
     </>
   );
 };
